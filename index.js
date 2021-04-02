@@ -4,12 +4,11 @@ const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const { ObjectID } = require('bson');
 require('dotenv').config()
-const uri = "mongodb+srv://quickShop:saad1234@cluster0.hsnpf.mongodb.net/shopNow?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.hsnpf.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express()
-// console.log(process.env.DB_USER)
-// console.log(process.env.DB_PASS)
+
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -74,4 +73,4 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port)
+app.listen(process.env.PORT || port)
